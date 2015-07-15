@@ -14,24 +14,10 @@
                     	<article id="post-<?php the_ID(); ?>" role="article" itemscope itemtype="http://schema.org/WebPage">
                         	<header class="article-header">
                             	<h1 class="page-title team-font" itemprop="headline">
-								  <?php
-                                    if(get_field('custom_page_headline_(h1)')) {
-                                          the_field('custom_page_headline_(h1)');
-                                    } else {
-                                          the_title();
-                                    }
-                                  ?>
+                                         <?php the_title(); ?>
                                 </h1>
                             </header>
                             <section itemprop="articleBody">
-								<?php
-                                  if(get_field('page_sub-headline_(h2)')) {
-                                    echo '<h2>';
-                                        the_field('page_sub-headline_(h2)');
-                                    echo '</h2>';
-                                  }
-                                ?>
-                                
                                 <?php if ( has_post_thumbnail() ) { ?>
                                       <?php the_post_thumbnail(array(200,200), array('class'=>'img-thumbnail pull-right margin-left')); ?>
                                 <?php } ?>
@@ -46,14 +32,28 @@
                 <?php endif; ?>
                 <?php wp_reset_query(); ?>
             </div>
-            <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            	<div class="content-block">
-                	<aside>
-                		<?php get_sidebar('sidebar')?>
-                    </aside>
-                </div>
-            </div>-->
         </div>
+        <div class="row">
+            <?php
+                $i = 1;
+                $cntPerRow = 3;
+            ?>
+            <?php $page_query = new WP_Query('post_type=page&post_parent='.$post->ID.'&order=ASC&orderby=menu_order'); ?>
+            
+            <?php while ($page_query->have_posts()) : $page_query->the_post(); ?>
+                    <div class="col-xs-12 col-sm-12 col-md-<?php echo 12/$cntPerRow; ?> col-lg-<?php echo 12/$cntPerRow; ?>">
+                                <?php if ( has_post_thumbnail() ) { ?>
+                                      <?php the_post_thumbnail(array(200,200), array('class'=>'img-thumbnail home-tile')); ?>
+                                <?php } ?>
+                    </div>  
+                    <?php if ($i % 3 == 0) {
+                        echo '</div><div class="row">';
+                    } else {
+                     $i++; 
+                     } ?>
+        <?php endwhile; ?>
+              
+        <?php wp_reset_query(); ?> 
     </div>
 </div>
 <?php get_footer(); ?>

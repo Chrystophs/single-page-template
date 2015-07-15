@@ -377,9 +377,9 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857;
-  background-color: #222;
+  background-color: #555;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 10px;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
@@ -5770,7 +5770,10 @@ button.close {
   padding-bottom: 20px; }
   /* line 160, bootstrap/_styles.scss */
   .body-bg .container {
-    background: #fff; }
+    background: transparent; }
+    .container {
+      color: #ddd;
+    }
   /* line 163, bootstrap/_styles.scss */
   .body-bg .containernav {
     padding-left: 0px !important;
